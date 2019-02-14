@@ -2,6 +2,8 @@ function krpanoAccessibility(krpano) {
 
 	varBind(0);
 
+	var controls = {}, thumbArray = [];
+
 	function varBind(time) {
 
 		setTimeout(function() {
@@ -22,8 +24,6 @@ function krpanoAccessibility(krpano) {
 				next = krpano.get('layer[skin_btn_next]');
 
 			var thumbsScroll = krpano.get('layer[skin_thumbs]');
-
-
 
 			if (left && right && up && down ) {
 
@@ -57,7 +57,6 @@ function krpanoAccessibility(krpano) {
 
 				setTabIndex();
 			} else {
-				console.log('dcddddddddddd')
 				varBind(100);
 			}
 
@@ -138,47 +137,47 @@ function krpanoAccessibility(krpano) {
 				krpano.call('skin_showmap(false); skin_showthumbs();');
 			}
 
-			if (e.key == 'Tab') {
-				if (!e.shiftKey) {
-					if (krpano.get('layer[skin_thumbs].state') == 'opened') {
-						e.preventDefault();
-						console.log('dcdd')
-						thumbArray[0].focus();
-					}
-				}
+			// if (e.key == 'Tab') {
+			// 	if (!e.shiftKey) {
+			// 		if (krpano.get('layer[skin_thumbs].state') == 'opened') {
+			// 			e.preventDefault();
+			// 			console.log('dcdd')
+			// 			thumbArray[0].focus();
+			// 		}
+			// 	}
 
-			}
+			// }
 		}
 
-		controls.thumbs.sprite.onkeydown = function(e) {
-			if (e.key == 'Tab') {
-				if (!e.shiftKey) {
-					if (krpano.get('layer[skin_thumbs].state') == 'opened') {
-						e.preventDefault();
-					}
-				}
-			}
-		}
+		// controls.thumbs.sprite.onkeydown = function(e) {
+		// 	if (e.key == 'Tab') {
+		// 		if (!e.shiftKey) {
+		// 			if (krpano.get('layer[skin_thumbs].state') == 'opened') {
+		// 				e.preventDefault();
+		// 			}
+		// 		}
+		// 	}
+		// }
 
-		if ( thumbArray.length) {
-			thumbArray[thumbArray.length - 1].onkeydown = function(e) {
-				if (e.key == 'Tab') {
-					if (!e.shiftKey) {
-						e.preventDefault();
-						controls.left.sprite.focus();
-					}
-				}
-			}
+		// if (  thumbArray.length) {
+		// 	thumbArray[thumbArray.length - 1].onkeydown = function(e) {
+		// 		if (e.key == 'Tab') {
+		// 			if (!e.shiftKey) {
+		// 				e.preventDefault();
+		// 				controls.left.sprite.focus();
+		// 			}
+		// 		}
+		// 	}
 
-			thumbArray[0].onkeydown = function(e) {
-				if (e.key == 'Tab') {
-					if (e.shiftKey) {
-						e.preventDefault();
-						controls.thumbs.sprite.focus();
-					}
-				}
-			}
-		}
+		// 	thumbArray[0].onkeydown = function(e) {
+		// 		if (e.key == 'Tab') {
+		// 			if (e.shiftKey) {
+		// 				e.preventDefault();
+		// 				controls.thumbs.sprite.focus();
+		// 			}
+		// 		}
+		// 	}
+		// }
 
 
 
@@ -187,14 +186,14 @@ function krpanoAccessibility(krpano) {
 				krpano.call('set(hlookat_moveforce,-1);');
 			}
 
-			if (e.key == 'Tab') {
-				if (e.shiftKey) {
-					if (krpano.get('layer[skin_thumbs].state') == 'opened') {
-						e.preventDefault();
-						thumbArray[thumbArray.length - 1].focus();
-					}
-				}
-			}
+			// if (e.key == 'Tab') {
+			// 	if (e.shiftKey) {
+			// 		if (krpano.get('layer[skin_thumbs].state') == 'opened') {
+			// 			e.preventDefault();
+			// 			thumbArray[thumbArray.length - 1].focus();
+			// 		}
+			// 	}
+			// }
 		}
 
 		controls.left.sprite.onkeyup = function(e) {
