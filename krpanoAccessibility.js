@@ -1,4 +1,4 @@
-function krpanoAccessibility() {
+function krpanoAccessibility(krpano) {
 
 	varBind(0);
 
@@ -25,10 +25,22 @@ function krpanoAccessibility() {
 
 
 
-			if (left && right && up && down && thumbsScroll.sprite.childNodes.length) {
+			if (left && right && up && down ) {
+
+				if ( String(krpano.get('skin_settings').thumbs) == 'true' ) {
+
+					if ( thumbsScroll.sprite.childNodes.length != 0 ) {
+
+						thumbArray = thumbsScroll.sprite.childNodes;
+					} else {
+						varBind(100);
+						return;
+					}
+				} 
+
 				controls = {
 					thumbs: thumbs,
-					left: left,
+					left: left,	
 					right: right,
 					up: up,
 					down: down,
@@ -43,14 +55,13 @@ function krpanoAccessibility() {
 					next: next
 				}
 
-				thumbArray = thumbsScroll.sprite.childNodes;
-
 				setTabIndex();
 			} else {
+				console.log('dcddddddddddd')
 				varBind(100);
 			}
 
-		}, time)
+		}, time);
 
 	}
 
@@ -109,12 +120,10 @@ function krpanoAccessibility() {
 		controls.prev.sprite.appendChild(createBlind('이전 VR 보기'));
 		controls.next.sprite.appendChild(createBlind('다음 VR 보기'));
 
-		controls.up.sprite.appendChild(createBlind('상'));
-		controls.down.sprite.appendChild(createBlind('하'));
-		controls.left.sprite.appendChild(createBlind('좌'));
-		controls.right.sprite.appendChild(createBlind('우'));
-
-
+		controls.up.sprite.appendChild(createBlind('위로'));
+		controls.down.sprite.appendChild(createBlind('아래로'));
+		controls.left.sprite.appendChild(createBlind('왼쪽으로'));
+		controls.right.sprite.appendChild(createBlind('오른쪽으로'));
 
 		for (var i = 0; i < thumbArray.length; i++) {
 			thumbArray[i].appendChild(createBlind(i+'번 VR 보기'));
@@ -122,9 +131,7 @@ function krpanoAccessibility() {
 
 	}
 
-
 	function eventBind() {
-
 
 		controls.thumbs.sprite.onkeyup = function(e) {
 			if (e.key == 'Enter') {
@@ -153,23 +160,27 @@ function krpanoAccessibility() {
 			}
 		}
 
-		thumbArray[thumbArray.length - 1].onkeydown = function(e) {
-			if (e.key == 'Tab') {
-				if (!e.shiftKey) {
-					e.preventDefault();
-					controls.left.sprite.focus();
+		if ( thumbArray.length) {
+			thumbArray[thumbArray.length - 1].onkeydown = function(e) {
+				if (e.key == 'Tab') {
+					if (!e.shiftKey) {
+						e.preventDefault();
+						controls.left.sprite.focus();
+					}
+				}
+			}
+
+			thumbArray[0].onkeydown = function(e) {
+				if (e.key == 'Tab') {
+					if (e.shiftKey) {
+						e.preventDefault();
+						controls.thumbs.sprite.focus();
+					}
 				}
 			}
 		}
 
-		thumbArray[0].onkeydown = function(e) {
-			if (e.key == 'Tab') {
-				if (e.shiftKey) {
-					e.preventDefault();
-					controls.thumbs.sprite.focus();
-				}
-			}
-		}
+
 
 		controls.left.sprite.onkeydown = function(e) {
 			if (e.key == 'Enter') {
